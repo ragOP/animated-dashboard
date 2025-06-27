@@ -19,8 +19,9 @@ const data = {
   },
   settlements: {
     total_settled_files: 145,
-    accident_benefit_claim: 37,
-    bodily_injury_claim: 32,
+    accident_benefit_claim: 76,
+    bodily_injury_claim: 37,
+    property_damage_claim: 32
   },
   deadlines: {
     general: ['SOC', 'LAT', 'AOS', 'Section 33', 'Section 44'],
@@ -42,11 +43,17 @@ const data = {
     note: 'Preparation of notes',
   },
   pending_documents: [
-    'Family Physician Records',
-    'Hospital Records',
-    'Walk-In Clinic Records',
-    'OHIP Decorated Summary',
-    'Prescription Summary',
+    "Family Physician Records",
+    "Hospital Records",
+    "Walk-In Clinic Records",
+    "OHIP Decorated Summary",
+    "Prescription Summary",
+    "Pending CNR's Payment from insurance",
+    "Accident Benefit File",
+    "Property Damage File",
+    "Notice of Assessment",
+    "School/College File",
+    "Employment File"
   ],
 };
 
@@ -159,12 +166,14 @@ const OptimizedCard = ({ children, className = "", delay = 0 }) => (
   >
     <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/30 via-purple-500/30 to-pink-500/30 rounded-3xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
     <div
-      className="relative backdrop-blur-xl rounded-3xl p-4 sm:p-6 border shadow-xl h-full overflow-y-auto"
+      className="relative backdrop-blur-xl rounded-3xl p-4 sm:p-6 border shadow-xl h-full overflow-y-auto scrollbar-hide"
       style={{
         background: 'rgba(15, 23, 42, 0.85)',
         backdropFilter: 'blur(20px)',
         border: '1px solid rgba(255, 255, 255, 0.15)',
         boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none',
       }}
     >
       {children}
@@ -341,6 +350,24 @@ const App = () => {
           <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-cyan-300 to-purple-400 bg-clip-text text-transparent mb-4 sm:mb-6">
             Deadlines
           </h2>
+          
+          <div className="mb-4 sm:mb-6">
+            <h3 className="text-sm font-bold text-white/80 mb-2 sm:mb-3">General</h3>
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
+              {data.deadlines.general.map((item, index) => (
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="px-2 sm:px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-400/30 text-cyan-200 hover:from-cyan-500/30 hover:to-purple-500/30 transition-all duration-300"
+                >
+                  {item}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+          
           <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
             {[
               { width: 90, gradient: 'linear-gradient(90deg, #ec4899, #f97316)' },
